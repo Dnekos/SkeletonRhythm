@@ -9,6 +9,9 @@ public class Conductor : MonoBehaviour
     public float offset;
     public float crotchet; // the time duration of a beat, calculated from the bpm
     public float currentBeat = 0;
+    public int CurrentBeatIndex = 0;
+
+    //public List<bool> BeatTimes;
 
     AudioSource sound;
 
@@ -31,8 +34,14 @@ public class Conductor : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        SongPosition  = (float)(AudioSettings.dspTime - dsptimesong) * sound.pitch - offset;
+        SongPosition = (float)(AudioSettings.dspTime - dsptimesong) * sound.pitch - offset;
         if (SongPosition > currentBeat + crotchet)
+        {
+            //if (BeatTimes.Count > CurrentBeatIndex)
+              //  Debug.Log(BeatTimes[CurrentBeatIndex]);
+
             currentBeat += crotchet;
+            CurrentBeatIndex++;
+        }
     }
 }

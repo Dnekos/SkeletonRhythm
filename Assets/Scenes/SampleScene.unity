@@ -637,6 +637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1126196604}
   - component: {fileID: 1126196603}
+  - component: {fileID: 1126196605}
   m_Layer: 0
   m_Name: Beat Dot Spawner
   m_TagString: Untagged
@@ -658,6 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conductor: {fileID: 1379043135}
   beatDot: {fileID: 8906374653207145018, guid: 7a3d59540c13466429d7cf749eb159e7, type: 3}
+  BeatTimes: 
 --- !u!4 &1126196604
 Transform:
   m_ObjectHideFlags: 0
@@ -672,6 +674,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &1126196605
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126196602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 305d012a787f80e4cbd03dbf7de53f4a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f1cc89a65a88b0a4f9f79bb9d630c246, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1379043134
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +725,7 @@ MonoBehaviour:
   offset: 0
   crotchet: 0
   currentBeat: 0
+  CurrentBeatIndex: 0
 --- !u!4 &1379043136
 Transform:
   m_ObjectHideFlags: 0
