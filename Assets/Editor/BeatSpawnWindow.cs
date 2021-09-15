@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+//using UnityEditor.Audio;
+
 
 public class BeatSpawnWindow : EditorWindow
 {
@@ -11,11 +13,11 @@ public class BeatSpawnWindow : EditorWindow
     AudioClip song;
     float BPM;
 
-    [MenuItem("Tools/uhhhh shit")] // topbar spot
-    public static void ShowWindow()
-    {
-        GetWindow(typeof(BeatSpawnWindow));
-    }
+	[MenuItem("Tools/uhhhh shit")] // topbar spot
+	public static void ShowWindow()
+	{
+		GetWindow(typeof(BeatSpawnWindow));
+	}
 
     private void OnGUI()
     {
@@ -35,11 +37,11 @@ public class BeatSpawnWindow : EditorWindow
         // left header
         GUILayout.BeginHorizontal();
         GUILayout.BeginVertical();
-        GUILayout.Label("");
-        GUILayout.Label("Top Left");
-        GUILayout.Label("Bot Left");
-        GUILayout.Label("Top Right");
-        GUILayout.Label("Bot Right");
+        GUILayout.Label("", GUILayout.Width(100));
+        GUILayout.Label("Top Left", GUILayout.Width(100));
+        GUILayout.Label("Bot Left", GUILayout.Width(100));
+        GUILayout.Label("Top Right", GUILayout.Width(100));
+        GUILayout.Label("Bot Right", GUILayout.Width(100));
         GUILayout.EndVertical();
 
         // start scroll
@@ -76,6 +78,19 @@ public class BeatSpawnWindow : EditorWindow
             }
             else
                 Debug.Log("Save Unsuccessful");
+        }
+        if (GUILayout.Button("Load"))
+        {
+            //PublicAudioUtil.PlayClip(song);
+            // find the spawner in the current scene
+            GameObject beatmanager = GameObject.Find("Beat Dot Spawner");
+            if (beatmanager) // if it exists
+            {
+                Debug.Log("Load Successful");
+                BeatPos = beatmanager.GetComponent<Spawner>().BeatTimes; // set values
+            }
+            else
+                Debug.Log("Load Unsuccessful");
         }
     }
 }

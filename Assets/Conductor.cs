@@ -37,9 +37,6 @@ public class Conductor : MonoBehaviour
         SongPosition = (float)(AudioSettings.dspTime - dsptimesong) * sound.pitch - offset;
         if (SongPosition > currentBeat + crotchet)
         {
-            //if (BeatTimes.Count > CurrentBeatIndex)
-              //  Debug.Log(BeatTimes[CurrentBeatIndex]);
-
             currentBeat += crotchet;
             CurrentBeatIndex++;
         }

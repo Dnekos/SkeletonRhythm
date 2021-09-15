@@ -9,7 +9,6 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     GameObject beatDot;
     float lastbeat = 0;
-    //public int CurrentBeatIndex = 0;
 
     public bool[] BeatTimes;
     // Start is called before the first frame update
