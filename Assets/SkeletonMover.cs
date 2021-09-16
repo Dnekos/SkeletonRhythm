@@ -5,9 +5,7 @@ using UnityEngine.InputSystem;
 
 public class SkeletonMover : MonoBehaviour
 {
-    [SerializeField]
-    bool gravity;
-
+	[Header("Bone Transforms")]
     [SerializeField]
     Transform Lefty, Righty, hip, RightBone, LeftBone,Spine;
 
@@ -15,18 +13,20 @@ public class SkeletonMover : MonoBehaviour
 
     PlayerInput input;
 
+	[Header("Arm Movement")]
     [SerializeField]
-    float Fallspeed = 9.8f, speed = 1, StopDistance;
+    float ArmMoveSpeed = 8, StopDistance;
+
+    [SerializeField, Header("Movement")]
+    float MoveSpeed;
+    bool moving;
 
     [SerializeField]
     float LeanAngle = 5, LeanSpeed = 4;
 
     [SerializeField]
-    float CrouchDifference = 1, CrouchSpeedMod = 0.5f;
+    float CrouchDifference = 1, CrouchMoveSpeedMod = 0.5f, CrouchSpeed = 4;
     float crouchheight, normalheight;
-    bool moving;
-    [SerializeField]
-    float movespeed;
 
     // Start is called before the first frame update
     void Start()
@@ -62,27 +62,31 @@ public class SkeletonMover : MonoBehaviour
         {
             if (Lefty.GetComponent<Rigidbody>().velocity.magnitude > 0)
                 Lefty.position = LeftBone.position;
-            Lefty.localPosition = Vector3.Lerp(Lefty.localPosition, LOrig + new Vector3(-R_motion.x, R_motion.y), Time.deltaTime * speed);
+            Lefty.localPosition = Vector3.Lerp(Lefty.localPosition, LOrig + new Vector3(-R_motion.x, R_motion.y), Time.deltaTime * ArmMoveSpeed);
             Lefty.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         if (L_motion != Vector3.zero)
         {
             if (Righty.GetComponent<Rigidbody>().velocity.magnitude > 0)
                 Righty.position = RightBone.position;
-            Righty.localPosition = Vector3.Lerp(Righty.localPosition, ROrig + new Vector3(-L_motion.x, L_motion.y), Time.deltaTime * speed);
+            Righty.localPosition = Vector3.Lerp(Righty.localPosition, ROrig + new Vector3(-L_motion.x, L_motion.y), Time.deltaTime * ArmMoveSpeed);
             Righty.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
         if (moving)
         {
             float horz = (R_motion + L_motion).x;
-            transform.position += Vector3.right * horz * movespeed * Time.deltaTime;
+            transform.position += Vector3.right * horz * MoveSpeed * Time.deltaTime;
             Spine.rotation = Quaternion.Lerp(Spine.rotation,
                 Quaternion.Euler(Spine.rotation.eulerAngles.x, Spine.rotation.eulerAngles.y, LeanAngle * horz),
                 LeanSpeed * Time.deltaTime);
 
             float vert = -(R_motion + L_motion).y;
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, normalheight - 0.5f * CrouchDifference + 0.5f *(CrouchDifference * -Mathf.Sign(vert)), Mathf.Abs(vert) * Time.deltaTime * 2), transform.position.z);
+            transform.position = new Vector3(transform.position.x, 
+				Mathf.Lerp(transform.position.y, 
+					normalheight - 0.5f * CrouchDifference + 0.5f * (CrouchDifference * -Mathf.Sign(vert)), 
+					Mathf.Abs(vert) * Time.deltaTime * CrouchSpeed), 
+				transform.position.z);
             
         }
     }

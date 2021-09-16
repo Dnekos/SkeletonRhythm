@@ -115,17 +115,14 @@ public class BeatSpawnWindow : EditorWindow
 		{
 			//PublicAudioUtil.PlayClip(song);
 			// find the spawner in the current scene
+			GameObject conductor = GameObject.Find("Conductor");
 			GameObject beatmanager = GameObject.Find("Beat Dot Spawner");
 			if (beatmanager) // if it exists
 			{
 				Debug.Log("Load Successful");
 				BeatPos = beatmanager.GetComponent<Spawner>().BeatTimes;
-				//BeatPosTL = loadedPos[0];
-				//BeatPosML = loadedPos[1];
-				//BeatPosBL = loadedPos[2];
-				//BeatPosTR = loadedPos[3];
-				//BeatPosMR = loadedPos[4];
-				//BeatPosBR = loadedPos[5];
+				song = conductor.GetComponent<AudioSource>().clip;
+				BPM = conductor.GetComponent<Conductor>().BPM;
 			}
 			else
 				Debug.Log("Load Unsuccessful");
