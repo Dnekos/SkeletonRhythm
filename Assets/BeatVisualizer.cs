@@ -11,7 +11,6 @@ public class BeatVisualizer : MonoBehaviour
     [SerializeField]
     public float beatsToFull = 3, LifetimeBeats = 0;
 
-    Transform InnerBeat;
     bool onPlayer = false;
 
     // Start is called before the first frame update
@@ -22,8 +21,7 @@ public class BeatVisualizer : MonoBehaviour
 
         lastbeat = conductor.currentBeat;
         firstbeat = lastbeat;
-        InnerBeat = transform.GetChild(0);
-
+		transform.localScale = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -31,7 +29,7 @@ public class BeatVisualizer : MonoBehaviour
     {
         if (conductor.SongPosition > lastbeat + conductor.crotchet)
         {
-            Debug.Log("beat");
+            //Debug.Log("beat");
             lastbeat += conductor.crotchet;
             LifetimeBeats++;
             if (LifetimeBeats >= beatsToFull)
@@ -39,10 +37,11 @@ public class BeatVisualizer : MonoBehaviour
                 if (onPlayer) // if colliding with player's hand
                     GameManager.score++; // increment score
 
+				//Debug.Log(transform.localScale);
                 Destroy(gameObject); // destroy beat
             }
         }
-        InnerBeat.localScale = Vector3.one * Mathf.Lerp(0, 1, (conductor.SongPosition - firstbeat) / ((conductor.SongPosition - firstbeat) + conductor.crotchet * beatsToFull) * 2);
+		transform.localScale = Vector3.one * Mathf.Lerp(0, 1, (conductor.SongPosition - firstbeat) / ( (conductor.crotchet * beatsToFull)));//(conductor.SongPosition - firstbeat) / ((conductor.SongPosition) + conductor.crotchet * beatsToFull)*2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -9,7 +9,7 @@ public class Conductor : MonoBehaviour
     public float offset;
     public float crotchet; // the time duration of a beat, calculated from the bpm
     public float currentBeat = 0;
-    public int CurrentBeatIndex = 0;
+    public int CurrentBeatIndex = -1;
 
     //public List<bool> BeatTimes;
 
@@ -39,6 +39,7 @@ public class Conductor : MonoBehaviour
         {
             currentBeat += crotchet;
             CurrentBeatIndex++;
+			Debug.Log(CurrentBeatIndex);
         }
     }
 }
